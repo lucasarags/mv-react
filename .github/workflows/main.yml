@@ -16,7 +16,7 @@
 # incorporar e, em seguida, solicitar a integração dessa branch à branch de destino por meio do 
 # botão "Create Pull Request" no GitHub. Já para fazer um push, o desenvolvedor pode utilizar o 
 # comando git push em sua máquina local para enviar as mudanças para o repositório remoto no GitHub.
-# Uma vez que o push ou pull request é feito, o workflow configurado será acionado automaticamente
+# Uma vez que o push é feito, o workflow configurado será acionado automaticamente
 #
 # Os desenvolvedores podem acompanhar o progresso do workflow na página "Actions" do repositório,
 # e receber notificações sobre erros ou falhas nas tarefas executadas. Com isso, eles podem corrigir
@@ -62,7 +62,7 @@ jobs:
             
             
 # O código acima é um exemplo de um fluxo de trabalho de CI/CD para uma aplicação React em que, quando 
-# um desenvolvedor faz uma alteração no branch "main" e envia um pull request, o código é construído e 
+# um desenvolvedor faz uma alteração no branch "main", o código é construído e 
 # testado no Ubuntu-latest. Se os testes forem bem-sucedidos, o código é implantado no Google Cloud. 
 # O uso do "actions/checkout@v3" garante que o código mais recente do branch "main" seja recuperado. 
 # As etapas "Install dependencies" e "Run tests" são executadas para instalar as dependências necessárias 
