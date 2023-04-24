@@ -54,11 +54,11 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-             # Comando para tornar o script executável
-             chmod +x /root/pipeline-react-app.sh
+            # Comando para tornar o script executável
+            chmod +x /root/pipeline-react-app.sh
       
-             # Comando para executar o script
-              /root/pipeline-react-app.sh
+            # Comando para executar o script
+            /root/pipeline-react-app.sh
             
             
 # O código acima é um exemplo de um fluxo de trabalho de CI/CD para uma aplicação React em que, quando 
