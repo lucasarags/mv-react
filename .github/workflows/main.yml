@@ -101,8 +101,5 @@ jobs:
 # variáveis de ambiente do fluxo de trabalho e executa um script que atualiza o código para a versão mais 
 # recente, instala as dependências necessárias e executa os testes novamente no servidor remoto.
 #
-# O próximo passo para o projeto é incrementar funcionalidade para test coverage. Bem como corrigir o erro
-# de chave no SSH. 
-#
 # http://35.226.197.229:3000/ (ativo por dente indeterminado), este será o link por onde pretende-se da 
 # continuidade com esse estudo de caso. Foi criado uma .sh e .service na VM para este projeto.
