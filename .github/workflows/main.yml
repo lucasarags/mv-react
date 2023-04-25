@@ -58,8 +58,15 @@ jobs:
       - name: Install dependencies
         run: npm install
         
-      - name: Run tests
-        run: npm test
+      - name: Run tests and Coverage
+        run: npm test -- --coverage
+        
+      - name: Analyze with SonarClound
+        uses: sonarsource/sonarcloud-github-action@master
+        
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONARCLOUND_TOKEN }}
         
   deploy:
     needs: test
