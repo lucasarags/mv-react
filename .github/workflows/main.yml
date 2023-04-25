@@ -4,8 +4,8 @@
 #
 # Nesse exemplo, o workflow é acionado toda vez que um push é feito para a branch "main", 
 # e ele consiste em um único job chamado "testes". Esse job roda em uma máquina virtual com 
-# sistema operacional Ubuntu e é composto por três steps: checkout do repositório, instalação 
-# das dependências e execução dos testes.
+# sistema operacional Ubuntu e é composto por steps: checkout do repositório, instalação 
+# das dependências, execução dos testes, set up node.js, analise com sonarclound
 #
 # Para que a equipe possa fazer mudanças no projeto em Front/React, eles precisam ter acesso de 
 # escrita ao repositório. Para conceder acesso, o proprietário ou administrador deve acessar as
@@ -91,9 +91,22 @@ jobs:
 # e executar os testes da aplicação. E finalmente, a etapa "Deploy to Google Cloud" usa a ação 
 # "appleboy/ssh-action@master" para implantar o código no Google Cloud por meio do SSH.
 #
+# Foi definido uma matrix matriz de versõe do Node.js para ser usada durante a execução da ação.
+# a ação é nomeada como "Set up Node.js" com a versão especificada através do valor ${{ matrix.node-version }}, 
+# que é um valor dinâmico que será preenchido posteriormente pela matriz de versões definida mais abaixo no arquivo.
+# a ação utiliza o pacote actions/setup-node@v3 para configurar o ambiente de execução da ação com a versão do Node.js 
+# especificada na matriz. O parâmetro node-version é configurado com a versão do Node.js da matriz para que a ação possa 
+# ser executada usando essa versão específica
+#
 # Os testes são geralmente definidos no arquivo "package.json" da sua aplicação React e é usado 
 # para executar os testes pelo desenvolvedor. Um dos testes padrões muito utilizado é o 
-# "jest", que é uma biblioteca popular para escrever testes em JavaScript.
+# "jest", que é uma biblioteca popular para escrever testes em JavaScript. O passo "Run tests and Coverage"
+# executa o comando de teste e cobertura de código no projeto. O comando npm test -- --coverage executa os 
+# testes definidos no projeto e também gera um relatório de cobertura de código.
+#
+# O passo "Analyze with SonarCloud" utiliza a ação "sonarsource/sonarcloud-github-action@master" para analisar 
+# o código-fonte do projeto e enviar os resultados para o SonarCloud. As variáveis de ambiente "GITHUB_TOKEN" e 
+# "SONAR_TOKEN" são usadas para autenticação com o GitHub e o SonarCloud, respectivamente.
 #
 # "appleboy/ssh-action@master" é uma ação disponível no marketplace do GitHub que permite executar comandos 
 # em um servidor remoto por meio do protocolo SSH. essa ação é usada para implantar a aplicação React no 
@@ -103,3 +116,10 @@ jobs:
 #
 # http://35.226.197.229:3000/ (ativo por dente indeterminado), este será o link por onde pretende-se da 
 # continuidade com esse estudo de caso. Foi criado uma .sh e .service na VM para este projeto.
+#
+# PENDENTE: desenvolver componentes, criar teste de unidade com JEST, para butão, condições de liite, etc..
+# A ideia é poder ter a porcentagem do COVERAGE, visto que o projeto é o basico criado pelo REACT, logo, 
+# é de responsabilidade do DEV criar funções para realizar testes unitários.
+#
+# PENDENTE: Discutir com os mentores os erros no DEPLOY. Os estudos demostram que deve-se criar um par de chaves SSH
+# que sejam estáticas, seguindo as regras do ambiente de desenvolvimento do GOOGLE CLOUND.
