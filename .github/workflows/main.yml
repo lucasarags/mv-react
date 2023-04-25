@@ -1,6 +1,6 @@
 # WorkFlow para o fluxo de trabalho CI/CD de um Projeto React. Começa automaticamente e 
 # executa uma série de etapas, que incluem clonar o repositório, instalar as dependências,
-# testar o código, e implantar no Google Cloud. 
+# testar o código
 #
 # Nesse exemplo, o workflow é acionado toda vez que um push é feito para a branch "main", 
 # e ele consiste em um único job chamado "testes". Esse job roda em uma máquina virtual com 
@@ -27,7 +27,7 @@
 # fora da pasta raiz, visto que deverá especificar a "ref:" e o "path:", e mesmo assim poderá ter conflitos
 # e erros, além de dificultar o gerenciamento do projeto entre os Devs.
 
-name: CI/CD Projeto React
+name: CI Projeto React
 
 on:
   push:
@@ -68,28 +68,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONARCLOUND_TOKEN }}
         
-  deploy:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Execute deployment script
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            chmod +x /root/pipeline-react-app.sh
-            /root/pipeline-react-app.sh
-            
             
 # O código acima é um exemplo de um fluxo de trabalho de CI/CD para uma aplicação React em que, quando 
 # um desenvolvedor faz uma alteração no branch "main", o código é construído e 
 # testado no Ubuntu-latest. Se os testes forem bem-sucedidos, o código é implantado no Google Cloud. 
 # O uso do "actions/checkout@v3" garante que o código mais recente do branch "main" seja recuperado. 
 # As etapas "Install dependencies" e "Run tests" são executadas para instalar as dependências necessárias 
-# e executar os testes da aplicação. E finalmente, a etapa "Deploy to Google Cloud" usa a ação 
-# "appleboy/ssh-action@master" para implantar o código no Google Cloud por meio do SSH.
+# e executar os testes da aplicação. 
 #
 # Foi definido uma matrix matriz de versõe do Node.js para ser usada durante a execução da ação.
 # a ação é nomeada como "Set up Node.js" com a versão especificada através do valor ${{ matrix.node-version }}, 
@@ -113,13 +98,3 @@ jobs:
 # Google Cloud. A ação se conecta ao servidor remoto usando as informações de conexão SSH fornecidas nas 
 # variáveis de ambiente do fluxo de trabalho e executa um script que atualiza o código para a versão mais 
 # recente, instala as dependências necessárias e executa os testes novamente no servidor remoto.
-#
-# http://35.226.197.229:3000/ (ativo por dente indeterminado), este será o link por onde pretende-se da 
-# continuidade com esse estudo de caso. Foi criado uma .sh e .service na VM para este projeto.
-#
-# PENDENTE: desenvolver componentes, criar teste de unidade com JEST, para butão, condições de liite, etc..
-# A ideia é poder ter a porcentagem do COVERAGE, visto que o projeto é o basico criado pelo REACT, logo, 
-# é de responsabilidade do DEV criar funções para realizar testes unitários.
-#
-# PENDENTE: Discutir com os mentores os erros no DEPLOY. Os estudos demostram que deve-se criar um par de chaves SSH
-# que sejam estáticas, seguindo as regras do ambiente de desenvolvimento do GOOGLE CLOUND.
