@@ -1,4 +1,4 @@
-# WorkFlow para o fluxo de trabalho CI/CD de um Projeto React. Começa automaticamente e 
+# WorkFlow para o fluxo de trabalho CI de um Projeto React. Começa automaticamente e 
 # executa uma série de etapas, que incluem clonar o repositório, instalar as dependências,
 # testar o código
 #
@@ -92,9 +92,4 @@ jobs:
 # O passo "Analyze with SonarCloud" utiliza a ação "sonarsource/sonarcloud-github-action@master" para analisar 
 # o código-fonte do projeto e enviar os resultados para o SonarCloud. As variáveis de ambiente "GITHUB_TOKEN" e 
 # "SONAR_TOKEN" são usadas para autenticação com o GitHub e o SonarCloud, respectivamente.
-#
-# "appleboy/ssh-action@master" é uma ação disponível no marketplace do GitHub que permite executar comandos 
-# em um servidor remoto por meio do protocolo SSH. essa ação é usada para implantar a aplicação React no 
-# Google Cloud. A ação se conecta ao servidor remoto usando as informações de conexão SSH fornecidas nas 
-# variáveis de ambiente do fluxo de trabalho e executa um script que atualiza o código para a versão mais 
-# recente, instala as dependências necessárias e executa os testes novamente no servidor remoto.
+
