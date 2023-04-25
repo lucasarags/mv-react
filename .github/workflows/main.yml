@@ -66,8 +66,8 @@ jobs:
 # e executar os testes da aplicação. E finalmente, a etapa "Deploy to Google Cloud" usa a ação 
 # "appleboy/ssh-action@master" para implantar o código no Google Cloud por meio do SSH.
 #
-# O comando "npm test" geralmente é definido no arquivo "package.json" da sua aplicação React e é usado 
-# para executar os testes definidos pelo desenvolvedor. Por exemplo, por padrão, ele executa o test runner 
+# Os testes são geralmente definidos no arquivo "package.json" da sua aplicação React e é usado 
+# para executar os testes pelo desenvolvedor. Um dos testes padrões muito utilizado é o 
 # "jest", que é uma biblioteca popular para escrever testes em JavaScript.
 #
 # "appleboy/ssh-action@master" é uma ação disponível no marketplace do GitHub que permite executar comandos 
@@ -75,3 +75,6 @@ jobs:
 # Google Cloud. A ação se conecta ao servidor remoto usando as informações de conexão SSH fornecidas nas 
 # variáveis de ambiente do fluxo de trabalho e executa um script que atualiza o código para a versão mais 
 # recente, instala as dependências necessárias e executa os testes novamente no servidor remoto.
+#
+# O próximo passo para o projeto é incrementar funcionalidade para test coverage. Bem como corrigir o erro
+# de chave no SSH. 
