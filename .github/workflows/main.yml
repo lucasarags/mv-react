@@ -38,7 +38,7 @@ on:
     - main
     
 jobs:
-  test:
+  CI:
   
     runs-on: ubuntu-latest
     
