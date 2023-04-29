@@ -59,7 +59,10 @@ jobs:
         run: npm install
         
       - name: Run tests and Coverage
-        run: npm test -- --coverage
+        run: npm run test -- --coverage
+        
+        env:
+          CI: true
         
       - name: Analyze with SonarClound
         uses: sonarsource/sonarcloud-github-action@master
