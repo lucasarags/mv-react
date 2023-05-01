@@ -1,1 +1,68 @@
+name: CD Project React
 
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  CD:
+  
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - name: Configure SSH Google Cloud
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/google-cloud.key
+          chmod 600 ~/.ssh/google-cloud.key
+          cat >>~/.ssh/config <<END
+          Host google-cloud
+            HostName $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/google-cloud.key
+            StrictHostKeyChecking no
+          END
+        env:
+          SSH_USER: ${{ secrets.SSH_USERNAME }}
+          SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_HOST: ${{ secrets.HOST }}
+
+      - name: checkout code repository
+        uses: actions/checkout@v3
+        
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          
+      - name: Install dependencies
+        run: npm install
+        
+      - name: Run tests and Coverage
+        run: npm run test -- --coverage
+        
+        env:
+          CD: true
+        
+      - name: Analyze with SonarClound
+        uses: sonarsource/sonarcloud-github-action@master
+        
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONARCLOUND_TOKEN }}
+
+      - name: Build the application
+        run: npm run build
+
+      - name: Deploy the application
+        run: |
+          ssh google-cloud 'sudo systemctl stop my-react-app'
+          ssh google-cloud 'sudo rm -rf /app/react-pipeline-ci'
+          scp -r build google-cloud:/home/github/react-pipeline-ci
+          ssh google-cloud 'sudo mv /home/github/react-pipeline-ci /app/react-pipeline-ci'
+          ssh google-cloud 'sudo systemctl start my-react-app'
