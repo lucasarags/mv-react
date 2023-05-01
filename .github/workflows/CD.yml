@@ -63,6 +63,6 @@ jobs:
         run: |
           ssh google-cloud 'sudo systemctl stop my-react-app'
           ssh google-cloud 'sudo rm -rf /app/react-pipeline-ci'
-          scp -r build google-cloud/home/github/react-pipeline-ci
+          scp -r build google-cloud:/home/github/react-pipeline-ci
           ssh google-cloud 'sudo mv /home/github/react-pipeline-ci /app/react-pipeline-ci'
           ssh google-cloud 'sudo systemctl start my-react-app'
