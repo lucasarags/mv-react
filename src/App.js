@@ -7,7 +7,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Teste CD e CI do Chute da Rabeta na branchd e teste
+          Teste CD e CI do Chute da Rabeta na branchd de teste
         </p>
         <a
           className="App-link"
