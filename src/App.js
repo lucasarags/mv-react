@@ -7,7 +7,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-        Pipeline CD e CI - test merge para produto final
+        Pipeline CD e CI - mudando apenas a Feature de test
         </p>
         <a
           className="App-link"
