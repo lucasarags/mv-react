@@ -66,6 +66,6 @@ jobs:
           scp -r build google-cloud:/home/github/react-pipeline-ci  
           ssh google-cloud 'sudo mv /home/github/react-pipeline-ci /app/react-pipeline-ci'  
           ssh google-cloud 'sudo systemctl start my-react-app'
-          
-        env:
-          CD: true
+        
+env:         
+  CD: true
