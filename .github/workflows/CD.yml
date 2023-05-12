@@ -47,7 +47,7 @@ jobs:
         run: npm run test -- --coverage
         
         env:
-          CD: true
+          CD: ${{ env.CD }}
         
       - name: Analyze with SonarClound
         uses: sonarsource/sonarcloud-github-action@master
@@ -66,3 +66,6 @@ jobs:
           scp -r build google-cloud:/home/github/react-pipeline-ci  
           ssh google-cloud 'sudo mv /home/github/react-pipeline-ci /app/react-pipeline-ci'  
           ssh google-cloud 'sudo systemctl start my-react-app'
+          
+        env:
+          CD: true
