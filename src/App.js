@@ -7,7 +7,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Teste CD e CI do Chute da Rabeta na branch de teste
+        Pipeline CD e CI - test merge para produto final
         </p>
         <a
           className="App-link"
