@@ -1,38 +1,10 @@
-# WorkFlow para o fluxo de trabalho CI de um Projeto React. Começa automaticamente e 
-# executa uma série de etapas, que incluem clonar o repositório, instalar as dependências,
-# testar o código
-#
-# Nesse exemplo, o workflow é acionado toda vez que um push é feito para a branch "main", 
-# e ele consiste em um único job chamado "testes". Esse job roda em uma máquina virtual com 
-# sistema operacional Ubuntu e é composto por steps: checkout do repositório, instalação 
-# das dependências, execução dos testes, set up node.js, analise com sonarclound
-#
-# Para que a equipe possa fazer mudanças no projeto em Front/React, eles precisam ter acesso de 
-# escrita ao repositório. Para conceder acesso, o proprietário ou administrador deve acessar as
-# configurações do repositório no GitHub, selecionar a aba "Manage access" e adicionar os usuários 
-# ou equipes que deseja conceder acesso.
-#
-# Para criar um pull request, o desenvolvedor precisa criar uma branch com as mudanças que deseja
-# incorporar e, em seguida, solicitar a integração dessa branch à branch de destino por meio do 
-# botão "Create Pull Request" no GitHub. Já para fazer um push, o desenvolvedor pode utilizar o 
-# comando git push em sua máquina local para enviar as mudanças para o repositório remoto no GitHub.
-# Uma vez que o push é feito, o workflow configurado será acionado automaticamente
-#
-# Os desenvolvedores podem acompanhar o progresso do workflow na página "Actions" do repositório,
-# e receber notificações sobre erros ou falhas nas tarefas executadas. Com isso, eles podem corrigir
-# as alterações e tentar novamente, garantindo que o código esteja sempre em um estado funcional e 
-# seguro.
-#
-# Detalhe: o workflow se encontra dentro da pasta raiz do projeto, não é uma boa prática criar workflow´s
-# fora da pasta raiz, visto que deverá especificar a "ref:" e o "path:", e mesmo assim poderá ter conflitos
-# e erros, além de dificultar o gerenciamento do projeto entre os Devs.
 
 name: CI Projeto React
 
 on:
   pull_request:
     branches:
-    - main
+    - feature/AmbienteTeste
     
 jobs:
   CI:
@@ -69,27 +41,4 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONARCLOUND_TOKEN }}
         
             
-# O código acima é um exemplo de um fluxo de trabalho de CI/CD para uma aplicação React em que, quando 
-# um desenvolvedor faz uma alteração no branch "main", o código é construído e 
-# testado no Ubuntu-latest. Se os testes forem bem-sucedidos, o código é implantado no Google Cloud. 
-# O uso do "actions/checkout@v3" garante que o código mais recente do branch "main" seja recuperado. 
-# As etapas "Install dependencies" e "Run tests" são executadas para instalar as dependências necessárias 
-# e executar os testes da aplicação. 
-#
-# Foi definido uma matrix matriz de versõe do Node.js para ser usada durante a execução da ação.
-# a ação é nomeada como "Set up Node.js" com a versão especificada através do valor ${{ matrix.node-version }}, 
-# que é um valor dinâmico que será preenchido posteriormente pela matriz de versões definida mais abaixo no arquivo.
-# a ação utiliza o pacote actions/setup-node@v3 para configurar o ambiente de execução da ação com a versão do Node.js 
-# especificada na matriz. O parâmetro node-version é configurado com a versão do Node.js da matriz para que a ação possa 
-# ser executada usando essa versão específica
-#
-# Os testes são geralmente definidos no arquivo "package.json" da sua aplicação React e é usado 
-# para executar os testes pelo desenvolvedor. Um dos testes padrões muito utilizado é o 
-# "jest", que é uma biblioteca popular para escrever testes em JavaScript. O passo "Run tests and Coverage"
-# executa o comando de teste e cobertura de código no projeto. O comando npm test -- --coverage executa os 
-# testes definidos no projeto e também gera um relatório de cobertura de código.
-#
-# O passo "Analyze with SonarCloud" utiliza a ação "sonarsource/sonarcloud-github-action@master" para analisar 
-# o código-fonte do projeto e enviar os resultados para o SonarCloud. As variáveis de ambiente "GITHUB_TOKEN" e 
-# "SONAR_TOKEN" são usadas para autenticação com o GitHub e o SonarCloud, respectivamente.
 

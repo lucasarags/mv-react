@@ -3,7 +3,7 @@ name: CD Project React
 on:
   push:
     branches:
-    - main
+    - feature/AmbienteTeste
 
 jobs:
   CD:
@@ -61,8 +61,8 @@ jobs:
 
       - name: Deploy the application
         run: |
-          ssh google-cloud 'sudo systemctl stop my-react-app'
-          ssh google-cloud 'sudo rm -rf /app/react-pipeline-ci'
-          scp -r build google-cloud:/home/github/react-pipeline-ci
-          ssh google-cloud 'sudo mv /home/github/react-pipeline-ci /app/react-pipeline-ci'
-          ssh google-cloud 'sudo systemctl start my-react-app'
+          ssh google-cloud 'sudo systemctl stop react-app-release'
+          ssh google-cloud 'sudo rm -rf /app/react-pipeline-ci-test' 
+          scp -r build google-cloud:/home/github/react-pipeline-ci-test  
+          ssh google-cloud 'sudo mv /home/github/react-pipeline-ci-test /app/react-pipeline-ci-test'  
+          ssh google-cloud 'sudo systemctl start react-app-release'
